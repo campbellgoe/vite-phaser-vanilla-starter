@@ -19,6 +19,7 @@ class GameScene extends Phaser.Scene
         this.load.image('ground', '/firstgame/assets/platform.png');
         this.load.image('star', '/firstgame/assets/star.png');
         this.load.image('bomb', '/firstgame/assets/bomb.png');
+        this.load.image('spaceship', '/firstgame/assets/spaceship.png')
         this.load.spritesheet('dude', '/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('fullscreen', '/ui/fullscreen.png', { frameWidth: 64, frameHeight: 64 });
     }
@@ -26,6 +27,8 @@ class GameScene extends Phaser.Scene
     create ()
     {
         this.add.image(400, 300, 'sky');
+
+        const spaceship = this.add.image(380, 360, 'spaceship')
 
         const platforms = this.physics.add.staticGroup();
 
@@ -84,6 +87,8 @@ class GameScene extends Phaser.Scene
 
         this.player = player;
 
+        this.spaceship = spaceship
+
         const button = this.add.image(800 - 16, 16, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 
         button.on('pointerup', function ()
@@ -129,29 +134,35 @@ class GameScene extends Phaser.Scene
     {
         const cursors = this.cursors;
         const player = this.player;
+        const spaceship = this.spaceship
 
         if (cursors.left.isDown)
         {
             player.setVelocityX(-160);
 
             player.anims.play('left', true);
+
+            //spaceship.setVelocityX(-160)
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(160);
 
             player.anims.play('right', true);
+            //spaceship.setVelocityX(160)
         }
         else
         {
             player.setVelocityX(0);
 
             player.anims.play('turn');
+           // spaceship.setVelocityX(0)
         }
 
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
+           // spaceship.setVelocityY(-330)
         }
     }
 
